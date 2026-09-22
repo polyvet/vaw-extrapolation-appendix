@@ -18,10 +18,8 @@ the simulated data come back bit-identical on any machine.
 
 ## Quick start
 
-    Rscript make_example_data.R                     # writes the simulated data
-    Rscript extrapolation_example.R                 # runs the pooling algorithm
-    Rscript extrapolation_example_paper_version.R   # compares against the
-                                                    # equation as first written up
+    Rscript make_example_data.R       # writes the simulated data
+    Rscript extrapolation_example.R   # runs the pooling algorithm
 
 Requires R with dplyr, tidyr, purrr and ggplot2.
 
@@ -38,15 +36,6 @@ sim_country_X_draws.rds, sim_country_Y_draws.rds, sim_country_Z_draws.rds.
 to each of the three example countries and writes the post-extrapolation fit and
 a plot for each: example_output_pooled_X.rds and example_plot_country_X.pdf, and
 likewise for Y and Z.
-
-**extrapolation_example_paper_version.R** — diagnostic companion. Identical
-except for the final pooling equation, implemented as the Methods section
-originally described it (year-specific global change) rather than as production
-implements it (global change averaged over the observation window). The only
-other difference is that the two lines constructing the time-averaged parent
-delta are dropped, since that version does not use them. Writes
-example_output_pooled_paper_version_X/Y/Z.rds and the three-panel comparison
-figure example_plot_code_vs_paper.pdf.
 
 ---
 
@@ -66,8 +55,9 @@ pooling algorithm consumes, and nothing else:
 4. the global series has a broad, roughly flat credible band, but the
    across-draw **variance of its year-on-year change grows** towards the end of
    the window. That second property, not the width of the band, is what the
-   algorithm consumes, and it is why a window-averaged parent delta is more
-   stable than a year-specific one.
+   algorithm consumes, and it is why the parent contribution is summarised by
+   the average annual change over the observation window rather than by the
+   year-specific change.
 
 Each series covers ages 15–49, 2000–2023, with 500 posterior draws. The three
 countries cover the situations in which the algorithm behaves differently:
@@ -105,26 +95,6 @@ steeply, while the pooled trajectory stays anchored.
 
 In 2000 the two are identical in every country (CTRY_X 8.0%, width 6.7; CTRY_Y
 34.0%, width 4.7; CTRY_Z 22.1%, width 22.5).
-
-### As implemented vs as originally written up
-
-The paper-version script quantifies the difference between the two forms of the
-final pooling equation. The medians agree to within 0.1 pp; the year-specific
-parent delta inflates the interval, because the across-draw variance of the
-global year-on-year change grows towards the end of the window.
-
-**2023**
-
-| | | median | 95% interval | width (pp) |
-|---|---|---:|:---:|---:|
-| CTRY_X | as implemented | 22.0% | 18.2 – 25.8 | 7.6 |
-| | paper equation | 21.9% | 16.9 – 27.2 | 10.3 |
-| CTRY_Y | as implemented | 27.7% | 24.9 – 31.0 | 6.1 |
-| | paper equation | 27.7% | 23.5 – 32.4 | 8.9 |
-| CTRY_Z | as implemented | 15.0% | 12.2 – 18.4 | 6.2 |
-| | paper equation | 14.9% | 11.7 – 19.5 | 7.8 |
-
-The Methods section has since been corrected to the implemented form.
 
 ---
 
