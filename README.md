@@ -98,23 +98,18 @@ In 2000 the two are identical in every country (CTRY_X 8.0%, width 6.7; CTRY_Y
 
 ---
 
-## Provenance of the code
+## Use of generative AI tools
 
-The algorithm in extrapolation_example.R is reproduced **verbatim** from the
-production script delta_log_pool_weff.R, including the configuration constants
-(w0 = 0.50, beta_steep = 1.0, w_min = 0.05, w_max = 0.95, s0 = 1e-6,
-eps_var = 1e-8) and set.seed(190575). Lines 199–333 of the production script,
-with comments stripped, surrounding whitespace trimmed and blank lines dropped,
-give a 98-line block with MD5 checksum 19ef95d0b0f4155cf0b920f2e8481098; that
-block appears verbatim, in the same order, inside extrapolation_example.R.
+Generative AI tools were used in preparing this repository and the
+accompanying manuscript. ChatGPT (OpenAI) and Claude (Anthropic) were used for
+English-language editing, for code review and debugging, and for checks of
+implementation and internal consistency. Claude was also used to build this
+worked example and to write the simulated-data generator.
 
-What was removed is only the surrounding production plumbing that is not needed
-for a single country: the loop over violence types and periods, the iso_keep
-construction (used only by the alternative population-weighted parent branch;
-production uses the model-derived global parent), the post-hoc flattening lists
-and merge, the trailing block that writes the production summary grids, and
-K_last, which is declared in the production configuration but never used.
-
-The example reproduces production exactly. Run against the real production
-posteriors for three countries that were not flattened, it returns the same 2023
-pooled estimate as the production run to within 2.8e-15 percentage points.
+These tools were not used to determine the study design, to develop the
+underlying methodological approach, to make analytical decisions, to generate
+the study results, or to formulate the scientific interpretation. The pooling
+algorithm itself is the authors' own work and is reproduced here verbatim from
+the production code. All code and results were independently reviewed, verified
+and approved by the authors, who take full responsibility for the content of
+this repository.
